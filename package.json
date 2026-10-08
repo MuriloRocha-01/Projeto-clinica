@@ -1,0 +1,13 @@
+{
+  "name": "agendamento-clinica",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "node --env-file-if-exists=backend/.env scripts/dev-backend.mjs",
+    "dev:worker": "node --env-file-if-exists=backend/.env scripts/dev-backend.mjs ./cmd/worker",
+    "db": "node --env-file-if-exists=backend/.env scripts/dev-backend.mjs ./cmd/db",
+    "build:frontend": "npm --prefix frontend run build",
+    "build:backend": "go -C backend build -o ../dist/api.exe ./cmd/api",
+    "lint": "npm --prefix frontend run lint"
+  }
+}
