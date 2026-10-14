@@ -8,3 +8,43 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Credenciais e configuracoes locais
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+.npmrc
+.pypirc
+.pgpass
+pgpass.conf
+.aws/
+.ssh/
+credentials.json
+credentials-*.json
+service-account*.json
+
+# Bancos locais, exportacoes e backups
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.dump
+*.backup
+*.bak
+backups/
+dumps/
+pgdata/
+postgres_data/
+uploads/
+
+# Arquivos temporarios de desenvolvimento
+work/
+coverage/

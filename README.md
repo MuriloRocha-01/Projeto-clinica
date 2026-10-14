@@ -29,7 +29,7 @@ npm run db -- -file schema.sql
 
 Esse comando cria as tabelas e não deve ser repetido em um banco onde elas já existem. Em caso de erro a transação inteira é revertida. O arquivo backend/migrations/001_initial.sql é o protótipo anterior e não é usado pela API atual.
 
-Alternativamente, para desenvolvimento local, docker compose up -d --wait cria o PostgreSQL e aplica backend/schema.sql na primeira inicialização do volume. Defina DATABASE_URL com o valor local de backend/.env.example. Volumes criados com o schema anterior precisam de migração; Compose não os atualiza automaticamente.
+Alternativamente, para desenvolvimento local, copie backend/.env.example para backend/.env, defina POSTGRES_PASSWORD com uma senha exclusiva e substitua [YOUR-PASSWORD] em DATABASE_URL pela mesma senha (codificada para URL, se contiver caracteres especiais). Execute `docker compose --env-file backend/.env up -d --wait` para criar o PostgreSQL e aplicar backend/schema.sql na primeira inicialização do volume. Volumes criados com o schema anterior precisam de migração; Compose não os atualiza automaticamente.
 
 A conexão remota usa TLS e limita o pool a cinco conexões. Se a rede não suportar IPv6, copie a URL de Connect → Session pooler no painel Supabase, incluindo o host e usuário exatos. Veja a [documentação de conexão](https://supabase.com/docs/guides/database/connecting-to-postgres).
 
@@ -201,3 +201,17 @@ O endereço deve ser acessível pela Evolution. Reinicie a API após configurar 
 Se o processo cair entre o envio e a gravação no banco, um lembrete pode ser reenviado após a concessão expirar. A Evolution não fornece aqui garantia de envio exatamente uma vez. Falhas esgotadas permanecem com `reminder_sent=false` e `reminder_attempts=5` para inspeção operacional. O worker fica desativado até as credenciais da Evolution serem preenchidas; os testes usam um gateway HTTP simulado, sem enviar mensagens reais.
 
 Contrato baseado no [DTO oficial de mensagens](https://github.com/EvolutionAPI/evolution-api/blob/main/src/api/dto/sendMessage.dto.ts) e no [controlador oficial de webhooks](https://github.com/EvolutionAPI/evolution-api/blob/main/src/api/integrations/event/webhook/webhook.controller.ts).
+
+## Arquivos privados
+
+Mantenha senhas e tokens somente nos arquivos .env locais, ignorados pelo Git. O .env.example deve conter apenas campos vazios ou placeholders. Não versione dados reais de pacientes, capturas de tela com dados reais, exportações do banco, backups ou chaves privadas. Os arquivos SQL de schema e migrations fazem parte do código e devem continuar versionados.
+
+Antes de publicar, revise os arquivos com git status e o conteúdo preparado com git diff --cached. O .gitignore não remove arquivos já rastreados nem limpa o histórico; se uma credencial real já foi publicada, revogue-a e substitua-a no serviço de origem.
+
+## PEP demonstrativo
+
+Rotas: `/dashboard`, `/dashboard/agenda`, `/dashboard/pacientes` e `/dashboard/pacientes/[id]`. A listagem reúne pacientes únicos da demonstração em todas as datas. Nomes na fila e nos detalhes abrem o prontuário. As rotas anteriores redirecionam para as novas.
+
+O PEP permite evoluções com templates SOAP/retorno, prescrições em rascunho e anexos locais. Dados ficam em memória durante a navegação e são perdidos ao recarregar. Use somente dados fictícios. Não há gravação clínica no PostgreSQL, autenticação do autor, assinatura digital ou emissão de receitas.
+
+Anexos aceitam PDF e DICOM Part 10 com cabeçalho DICM, até 20 MB por arquivo e 100 MB por sessão. A validação de cabeçalho não substitui inspeção de conteúdo no futuro servidor. PDF possui prévia local; DICOM exige visualizador externo após download. Nenhum arquivo é enviado ao servidor. Teste de validação: `node --experimental-strip-types frontend/tests/pep.test.mts`.

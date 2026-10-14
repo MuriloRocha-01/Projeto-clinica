@@ -6,3 +6,16 @@ button:not(:disabled), summary { cursor: pointer; }
 button, a, input, select, summary { outline-offset: 4px; }
 ::selection { background: #bfdbfe; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+.overview-interactive { outline-offset: 4px; }
+.overview-interactive:focus-visible { outline: 2px solid #2563eb; }
+.overview-interactive:hover { box-shadow: 0 8px 24px rgb(15 23 42 / 10%); }
+@media (prefers-reduced-motion: no-preference) {
+  .overview-interactive { transition: transform 180ms ease, box-shadow 180ms ease; }
+  .overview-interactive:hover { transform: translateY(-3px); }
+  .overview-interactive:active { transform: translateY(0); }
+  .overview-arrow { transition: transform 180ms ease; }
+  .overview-interactive:hover .overview-arrow { transform: translate(2px, -2px); }
+  .overview-dialog[open] { animation: overview-enter 180ms ease-out; }
+  @keyframes overview-enter { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+}

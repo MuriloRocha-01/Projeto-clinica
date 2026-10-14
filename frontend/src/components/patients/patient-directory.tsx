@@ -1,0 +1,10 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { Search, ArrowUpRight } from "lucide-react";
+import type { Appointment } from "@/types/dashboard";
+export function PatientDirectory({appointments}:{appointments:Appointment[]}) {
+ const [query,setQuery]=useState("");
+ const patients=[...new Map(appointments.map(a=>[a.patient.id,a.patient])).values()].filter(p=>[p.name,p.phone,p.email,String(p.id)].join(" ").toLocaleLowerCase("pt-BR").includes(query.trim().toLocaleLowerCase("pt-BR"))).sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));
+ return <section className="rounded-2xl bg-white p-6 shadow-sm"><div className="flex flex-wrap items-center justify-between gap-4"><div><h2 className="text-lg font-bold">Pacientes cadastrados</h2><p className="mt-1 text-sm text-slate-500">Todos os pacientes da demonstração, independentemente da data da agenda.</p></div><label className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2"><Search size={16}/><input aria-label="Buscar paciente" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Nome, contato ou ID" className="min-w-0 outline-blue-600"/></label></div><p className="my-5 text-xs text-slate-500">{patients.length} paciente(s)</p><ul className="grid gap-3 md:grid-cols-2">{patients.map(p=><li key={p.id}><Link href={`/dashboard/pacientes/${p.id}`} className="overview-interactive flex items-center gap-4 rounded-xl border border-slate-100 p-4"><span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-blue-50 font-bold text-blue-700" aria-label="Paciente sem foto">{p.initials}</span><div className="min-w-0 flex-1"><h3 className="font-semibold">{p.name}</h3><p className="mt-1 truncate text-xs text-slate-500">#{p.id} · {p.phone}</p><p className="mt-1 truncate text-xs text-slate-500">{p.email || "E-mail não informado"}</p></div><ArrowUpRight size={18} className="text-blue-600"/></Link></li>)}</ul>{!patients.length&&<p className="py-10 text-center text-slate-500">Nenhum paciente encontrado.</p>}</section>;
+}

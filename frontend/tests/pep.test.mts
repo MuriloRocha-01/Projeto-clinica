@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { validateExam } from '../src/services/pep.ts';
+assert.equal(await validateExam(new File(['%PDF-1.7\n'], 'exame.pdf')), null);
+assert.ok(await validateExam(new File(['texto'], 'exame.pdf')));
+assert.ok(await validateExam(new File([], 'exame.pdf')));
+assert.ok(await validateExam(new File(['%PDF-1.7'], 'exame.html')));
+const dicom = new Uint8Array(132); dicom.set([68,73,67,77],128);
+assert.equal(await validateExam(new File([dicom], 'exame.dcm')),null);
+assert.ok(await validateExam(new File([dicom.slice(0,128)], 'exame.dcm')));
+assert.ok(await validateExam(new File([new Uint8Array(20*1024*1024+1)], 'grande.pdf')));
+console.log('Anexos: PDF/DICOM, extensão, arquivo vazio e limite de tamanho OK');
