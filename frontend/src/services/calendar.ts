@@ -14,9 +14,9 @@ export function timeMinutes(time: string): number {
   return hour * 60 + minute;
 }
 
-type AppointmentInterval = Pick<Appointment, "date" | "professional" | "time" | "durationMinutes"> & { id?: number };
+type AppointmentInterval = Pick<Appointment, "date" | "professional" | "time" | "durationMinutes"> & { id?: number; status?: Appointment["status"] };
 export function appointmentsOverlap(a: AppointmentInterval, b: AppointmentInterval): boolean {
-  return a.id !== b.id && a.date === b.date && a.professional === b.professional
+  return a.status !== "cancelado" && b.status !== "cancelado" && a.id !== b.id && a.date === b.date && a.professional === b.professional
     && timeMinutes(a.time) < timeMinutes(b.time) + (b.durationMinutes ?? 30)
     && timeMinutes(a.time) + (a.durationMinutes ?? 30) > timeMinutes(b.time);
 }

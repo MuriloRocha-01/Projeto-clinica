@@ -21,7 +21,7 @@ export function PatientTableView({ appointments, professionals, mode, onTransiti
   const filtered = appointments.filter(a => (professional === "all" || a.professional === professional)
     && (status === "all" || a.status === status) && (attendance === "all" || a.attendanceType === attendance)
     && `${a.patient.name} ${a.patient.phone}`.toLocaleLowerCase("pt-BR").includes(search.trim().toLocaleLowerCase("pt-BR")));
-  const order: Record<AppointmentStatus, number> = { em_atendimento: 0, chegou: 1, confirmado: 2, agendado: 2, concluido: 3 };
+  const order: Record<AppointmentStatus, number> = { em_atendimento: 0, chegou: 1, confirmado: 2, agendado: 2, concluido: 3, cancelado: 4 };
   const rows = [...filtered].sort((a, b) => mode === "patients" ? a.patient.name.localeCompare(b.patient.name, "pt-BR")
     : order[a.status] - order[b.status] || (a.status === "chegou" && b.status === "chegou" ? (a.checkInAt ?? a.time).localeCompare(b.checkInAt ?? b.time) : a.time.localeCompare(b.time)));
 

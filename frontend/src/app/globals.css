@@ -11,6 +11,8 @@ button, a, input, select, summary { outline-offset: 4px; }
 .overview-interactive:focus-visible { outline: 2px solid #2563eb; }
 .overview-interactive:hover { box-shadow: 0 8px 24px rgb(15 23 42 / 10%); }
 @media (prefers-reduced-motion: no-preference) {
+  .appointment-status { animation: appointment-status-change 220ms ease-out; transition: background-color 180ms ease, color 180ms ease; }
+  @keyframes appointment-status-change { from { opacity: .5; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
   .overview-interactive { transition: transform 180ms ease, box-shadow 180ms ease; }
   .overview-interactive:hover { transform: translateY(-3px); }
   .overview-interactive:active { transform: translateY(0); }

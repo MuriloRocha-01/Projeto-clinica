@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import { PatientCard } from "@/components/dashboard/patient-card";
+import { useAppointmentActions } from "@/components/dashboard/use-appointment-actions";
 import { ChevronLeft, ChevronRight, Clock3, MapPin, X } from "lucide-react";
 import { calendarLanes, appointmentEnd, shiftDate, timeMinutes, weekDates } from "@/services/calendar";
 import { attendanceLabels, statusLabels, type Appointment } from "@/types/dashboard";
@@ -11,7 +13,9 @@ const startHour = 9;
 const endHour = 16;
 export function CalendarGrid({ appointments, date, onDateChange }: { appointments: Appointment[]; date: string; onDateChange: (date: string) => void }) {
   const [professional, setProfessional] = useState("all");
-  const [selected, setSelected] = useState<Appointment | null>(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const selected = appointments.find(item => item.id === selectedId);
+  const { feedback, changeStatus, clearFeedback } = useAppointmentActions();
   const drawer = useRef<HTMLDialogElement>(null);
   const days = weekDates(date);
   const week = appointments.filter(a => days.includes(a.date) && (professional === "all" || a.professional === professional));
@@ -19,7 +23,7 @@ export function CalendarGrid({ appointments, date, onDateChange }: { appointment
   const visible = week.filter(a => !outside.includes(a));
   const hours = Array.from({ length: endHour - startHour }, (_, i) => startHour + i);
   const doctors = [...new Set(appointments.map(a => a.professional))];
-  function open(appointment: Appointment) { setSelected(appointment); drawer.current?.showModal(); }
+  function open(appointment: Appointment) { setSelectedId(appointment.id); drawer.current?.showModal(); }
 
   return <section className="overflow-hidden rounded-2xl bg-white shadow-sm">
     <header className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 p-5">
@@ -39,7 +43,7 @@ export function CalendarGrid({ appointments, date, onDateChange }: { appointment
     </div>
     {week.length === 0 && <p role="status" className="px-5 py-4 text-sm text-slate-500">Nenhum agendamento nesta semana.</p>}
     {outside.length > 0 && <div className="border-t border-slate-100 p-5"><h3 className="text-sm font-bold">Fora do intervalo da grade</h3><div className="mt-3 flex flex-wrap gap-2">{outside.map(a => <button key={a.id} onClick={() => open(a)} className="rounded-xl border border-slate-200 px-3 py-2 text-xs hover:bg-slate-50">{a.patient.name} · {labelDate(a.date)} · {a.time}–{appointmentEnd(a)}</button>)}</div></div>}
-    <dialog ref={drawer} onClose={() => setSelected(null)} aria-labelledby="appointment-title" className="fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-full max-w-sm border-0 bg-white p-6 shadow-xl backdrop:bg-slate-900/30"><div className="flex items-center justify-between"><h2 id="appointment-title" className="font-bold">Detalhes da consulta</h2><button onClick={() => drawer.current?.close()} aria-label="Fechar detalhes" className="rounded-lg p-2 hover:bg-slate-100"><X size={18} /></button></div>{selected && <div className="mt-8"><span className="flex size-14 items-center justify-center rounded-full bg-blue-50 font-bold text-blue-700">{selected.patient.initials}</span><h3 className="mt-4 text-xl font-extrabold">{selected.patient.name}</h3><p className="mt-1 text-sm text-slate-500">{selected.condition ?? selected.specialty}</p><dl className="mt-6 space-y-5 text-sm"><div><dt className="text-xs text-slate-500">ID do agendamento</dt><dd className="mt-1 font-semibold">#{selected.id.toString().padStart(6, "0")}</dd></div><div><dt className="text-xs text-slate-500">Data e horário</dt><dd className="mt-1 flex items-center gap-2"><Clock3 size={15} />{labelDate(selected.date)} · {selected.time}–{appointmentEnd(selected)}</dd></div><div><dt className="text-xs text-slate-500">Modalidade</dt><dd className="mt-1 flex items-center gap-2"><MapPin size={15} />{selected.modality === "video" ? "Videoconsulta" : "Presencial"}</dd></div><div><dt className="text-xs text-slate-500">Profissional / atendimento</dt><dd className="mt-1">{selected.professional}<span className="mt-1 block">{attendanceLabels[selected.attendanceType]} · {statusLabels[selected.status]}</span></dd></div></dl><Link href={`/patients/${selected.patient.id}`} onClick={() => drawer.current?.close()} className="mt-8 block rounded-xl bg-blue-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-blue-700">Ver Ficha do Paciente</Link></div>}</dialog>
+    <dialog ref={drawer} onClose={() => { setSelectedId(null); clearFeedback(); }} aria-labelledby="appointment-title" className="fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-full max-w-xl overflow-auto border-0 bg-white p-6 shadow-xl backdrop:bg-slate-900/30 backdrop:backdrop-blur-sm"><div className="flex items-center justify-between"><h2 id="appointment-title" className="font-bold">Detalhes da consulta</h2><button onClick={() => drawer.current?.close()} aria-label="Fechar detalhes" className="rounded-lg p-2 hover:bg-slate-100"><X size={18} /></button></div><p role="status" aria-live="polite" className={feedback.text ? `mt-4 rounded-xl p-3 text-sm ${feedback.error ? "bg-rose-50 text-rose-700" : "bg-blue-50 text-blue-700"}` : "sr-only"}>{feedback.text}</p>{selected && <div className="mt-8"><span className="flex size-14 items-center justify-center rounded-full bg-blue-50 font-bold text-blue-700">{selected.patient.initials}</span><h3 className="mt-4 text-xl font-extrabold">{selected.patient.name}</h3><p className="mt-1 text-sm text-slate-500">{selected.condition ?? selected.specialty}</p><dl className="mt-6 space-y-5 text-sm"><div><dt className="text-xs text-slate-500">ID do agendamento</dt><dd className="mt-1 font-semibold">#{selected.id.toString().padStart(6, "0")}</dd></div><div><dt className="text-xs text-slate-500">Data e horário</dt><dd className="mt-1 flex items-center gap-2"><Clock3 size={15} />{labelDate(selected.date)} · {selected.time}–{appointmentEnd(selected)}</dd></div><div><dt className="text-xs text-slate-500">Modalidade</dt><dd className="mt-1 flex items-center gap-2"><MapPin size={15} />{selected.modality === "video" ? "Videoconsulta" : "Presencial"}</dd></div><div><dt className="text-xs text-slate-500">Profissional / atendimento</dt><dd className="mt-1">{selected.professional}<span className="mt-1 block">{attendanceLabels[selected.attendanceType]} · {statusLabels[selected.status]}</span></dd></div></dl><ul className="mt-6"><PatientCard appointment={selected} onAction={changeStatus} /></ul><Link href={`/dashboard/pacientes/${selected.patient.id}`} onClick={() => drawer.current?.close()} className="mt-8 block rounded-xl bg-blue-600 px-4 py-3 text-center text-sm font-bold text-white hover:bg-blue-700">Ver Ficha do Paciente</Link></div>}</dialog>
   </section>;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+
 import { PatientDirectory } from "../patients/patient-directory";
 import { useRef, useState, type FormEvent } from "react";
 import { useClinic } from "@/components/clinic-provider";
@@ -22,8 +22,6 @@ const dateLabel = (date: string) => new Date(`${date}T12:00:00`).toLocaleDateStr
 export function Dashboard({ view = "overview" }: { view?: "overview" | "queue" | "patients" }) {
   const {appointments, setAppointments, date, setDate} = useClinic();
 
-  const router=useRouter();
-  const setView=(next: "overview" | "queue" | "patients") => router.push(next === "patients" ? "/dashboard/pacientes" : next === "queue" ? "/dashboard/agenda" : "/dashboard");
   const [agendaMode, setAgendaMode] = useState<"calendar" | "queue">("calendar");
   const [newAttendanceType, setNewAttendanceType] = useState<AttendanceType>("particular");
 
@@ -80,8 +78,8 @@ export function Dashboard({ view = "overview" }: { view?: "overview" | "queue" |
   }
 
   return <>
-    <Navbar activeView={view} onNavigate={setView} />
-    <main id="main" className="mt-9">
+    <Navbar />
+    <main id="main" className="mt-9 lg:mt-3">
     <section className="mb-7 flex flex-wrap items-end justify-between gap-4"><div><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-blue-600">Seu dia, bem organizado</p><h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{view === "overview" ? "Visão geral" : view === "queue" ? "Agenda e fila de atendimento" : "Pacientes"}</h1><p className="mt-2 text-sm capitalize text-slate-500">{dateLabel(date)}</p></div><div className="flex flex-wrap items-center gap-3"><span className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700">Demonstração interativa</span>{view !== "overview" && <button onClick={() => { setFormError(""); newDialog.current?.showModal(); }} className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700"><Plus size={16} />Novo agendamento</button>}<label className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm"><CalendarDays size={16} className="text-slate-500" /><span className="sr-only">Data da agenda</span><input type="date" value={date} onChange={event => setDate(event.target.value || "2026-10-08")} className="min-w-0 bg-transparent text-slate-700" /></label></div></section>
     {view === "overview" ? <Overview appointments={day} /> : view === "queue" ? <div className="space-y-5"><div className="inline-flex gap-1 rounded-xl bg-white p-1 shadow-sm">{(["calendar", "queue"] as const).map(mode => <button key={mode} aria-pressed={agendaMode === mode} onClick={() => setAgendaMode(mode)} className={`rounded-lg px-4 py-2 text-sm font-semibold ${agendaMode === mode ? "bg-slate-900 text-white" : "text-slate-500 hover:bg-slate-50"}`}>{mode === "calendar" ? "Grade semanal" : "Fila do dia"}</button>)}</div>{agendaMode === "calendar" ? <CalendarGrid appointments={appointments} date={date} onDateChange={setDate} /> : <PatientTableView appointments={day} professionals={professionals} mode="queue" onTransition={transition} onPatient={openPatient} />}</div> : <PatientDirectory appointments={appointments} /> }
     <p role="status" aria-live="polite" className={`mt-4 rounded-xl text-sm ${message ? "border border-blue-100 bg-blue-50 px-4 py-3 text-blue-800" : "sr-only"}`}>{message}</p>
