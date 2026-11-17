@@ -1,8 +1,9 @@
 "use client";
 
-import { Activity, LayoutDashboard, CalendarDays, Users, ChevronDown, ShieldCheck, Settings } from "lucide-react";
+import { Activity, LayoutDashboard, CalendarDays, Users, ChevronDown, ShieldCheck, Settings, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { OPEN_PALETTE_EVENT } from "@/components/command-palette";
 
 
 const navigationItems = [
@@ -20,7 +21,10 @@ export function Navbar() {
         <span className="rounded-xl bg-blue-600 p-2.5 text-white"><Activity size={22} aria-hidden="true" /></span>
         <span className="text-xl font-extrabold tracking-tight">cliniq<span className="text-blue-600">.</span></span>
       </Link>
-      <nav aria-label="Navegação principal" className="order-3 flex w-full gap-1 overflow-x-auto text-sm font-semibold lg:order-none lg:mt-8 lg:flex-col lg:overflow-visible">
+      <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))} aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K" className="order-2 flex w-full items-center gap-3 rounded-xl border border-line bg-white px-4 py-2.5 text-left text-sm text-muted transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-brand-600 lg:order-none lg:mt-6">
+        <Search size={16} aria-hidden="true" /><span className="flex-1">Buscar…</span><kbd className="rounded-md border border-line px-1.5 py-0.5 text-xs font-semibold">Ctrl K</kbd>
+      </button>
+      <nav aria-label="Navegação principal" className="order-3 flex w-full gap-1 overflow-x-auto text-sm font-semibold lg:order-none lg:mt-4 lg:flex-col lg:overflow-visible">
         {navigationItems.map(({ label, href, icon: Icon }) => (
           <Link key={href} href={href} aria-current={(href === "/dashboard" ? pathname === href : pathname.startsWith(href)) ? "page" : undefined} className={`flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-blue-600 ${(href === "/dashboard" ? pathname === href : pathname.startsWith(href)) ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
             <Icon size={18} aria-hidden="true" />{label}
