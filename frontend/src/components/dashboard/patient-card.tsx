@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Check, Clock3, Mail, Phone } from "lucide-react";
 import { nextAppointmentStatus } from "@/services/appointment-workflow";
 import { formatMoney } from "@/services/billing";
+import { WaitTime } from "./wait-time";
 import { attendanceLabels, statusLabels, statusStyles, type Appointment, type AppointmentStatus } from "@/types/dashboard";
 
 const actionLabels: Partial<Record<AppointmentStatus, string>> = {
@@ -37,7 +38,7 @@ export function PatientCard({ appointment, onAction, financial = false }: {
         </div>
         {financial && <p className="mt-4 text-sm font-bold text-slate-800">Valor da consulta: {formatMoney(appointment.amountCents)}</p>}
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
-          <div className="flex items-center gap-2 text-blue-700"><Clock3 size={18} aria-hidden="true" /><time className="text-lg font-bold" dateTime={`${appointment.date}T${appointment.time}`}>{appointment.time}</time>{appointment.checkInAt && <span className="text-xs text-slate-600">Chegou às {appointment.checkInAt}</span>}</div>
+          <div className="flex items-center gap-2 text-blue-700"><Clock3 size={18} aria-hidden="true" /><time className="text-lg font-bold" dateTime={`${appointment.date}T${appointment.time}`}>{appointment.time}</time>{appointment.checkInAt && <span className="text-xs text-slate-600">Chegou às {appointment.checkInAt}</span>}{appointment.status === "chegou" && appointment.checkInAt && <WaitTime checkInAt={appointment.checkInAt} />}</div>
           <div className="flex w-full flex-wrap gap-2 sm:w-auto">
             {canCancel && <button type="button" onClick={() => onAction(appointment, "cancelado")} className="rounded-xl border border-rose-200 px-3 py-2.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-50 focus-visible:outline-2 focus-visible:outline-rose-600">Desmarcar / Cancelar<span className="sr-only"> consulta de {appointment.patient.name}</span></button>}
             {target && <button type="button" onClick={() => onAction(appointment, target)} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-3 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-blue-600"><Check size={15} aria-hidden="true" />{actionLabels[appointment.status]}<span className="sr-only"> · {appointment.patient.name}</span></button>}

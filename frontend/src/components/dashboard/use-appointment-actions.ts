@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useClinic } from "@/components/clinic-provider";
+import { demoClockTime } from "./use-demo-clock";
 import { appointmentTransitionError } from "@/services/appointment-workflow";
 import { statusLabels, type Appointment, type AppointmentStatus } from "@/types/dashboard";
 
@@ -13,7 +14,7 @@ export function useAppointmentActions() {
     if (!current) { setFeedback({ text: "Agendamento não encontrado.", error: true }); return; }
     const error = appointmentTransitionError(appointments, current, target);
     if (error) { setFeedback({ text: error, error: true }); return; }
-    const checkInAt = new Date().toLocaleTimeString("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" });
+    const checkInAt = demoClockTime();
     setAppointments(items => {
       const latest = items.find(appointment => appointment.id === item.id);
       if (!latest || appointmentTransitionError(items, latest, target)) return items;

@@ -14,6 +14,7 @@ import { appointmentsOverlap } from "@/services/calendar";
 import { parseMoney } from "@/services/billing";
 
 import { nextStatus } from "./queue-table";
+import { demoClockTime } from "./use-demo-clock";
 import { attendanceLabels, type AttendanceType, statusLabels, type Appointment } from "@/types/dashboard";
 
 const fieldClass = "w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 focus:border-blue-500 focus:outline-blue-500";
@@ -41,7 +42,7 @@ export function Dashboard({ view = "overview" }: { view?: "overview" | "queue" |
     if (status === "em_atendimento" && appointments.some(a => a.date === current.date && a.professional === current.professional && a.status === "em_atendimento")) {
       setMessage("Este profissional já está em atendimento. Conclua o atendimento atual antes de chamar outro paciente."); return;
     }
-    const time = new Date().toLocaleTimeString("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit" });
+    const time = demoClockTime();
     setAppointments(items => items.map(a => a.id === id ? { ...a, status, checkInAt: status === "chegou" ? time : a.checkInAt } : a));
     setMessage(`${current.patient.name}: ${statusLabels[status].toLowerCase()}.`);
   }
