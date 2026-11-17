@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/layout/footer";
 import { ClinicProvider } from "@/components/clinic-provider";
+
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Cliniq | Gestão da clínica",
@@ -9,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR" data-scroll-behavior="smooth"><body id="top" className="flex min-h-screen flex-col lg:pl-64"><ClinicProvider><div className="flex-1">{children}</div><Footer /></ClinicProvider></body></html>;
+  return <html lang="pt-BR" data-scroll-behavior="smooth" className={inter.variable}><body id="top" className="flex min-h-screen flex-col lg:pl-64"><ClinicProvider><div className="flex-1">{children}</div><Footer /></ClinicProvider></body></html>;
 }

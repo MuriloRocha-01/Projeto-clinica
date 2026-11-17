@@ -1,6 +1,29 @@
 @import "tailwindcss";
+
+/* Design tokens do Cliniq: cores, fonte, raios e sombras em um lugar só.
+   Os componentes de src/components/ui usam estes nomes (ex.: bg-brand-600, text-muted, border-line). */
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+
+  --color-ink: #0f172a;
+  /* texto secundário: 7,6:1 sobre branco e 6,7:1 sobre o fundo da página (AA exige 4,5:1) */
+  --color-muted: #475569;
+  --color-line: #e2e8f0;
+  --color-canvas: #f1f5f9;
+
+  --radius-control: 0.75rem;
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 6%);
+}
+
 :root { color-scheme: light; }
-body { margin: 0; background: #f1f5f9; color: #0f172a; font-family: Arial, Helvetica, sans-serif; }
+body { margin: 0; background: var(--color-canvas); color: var(--color-ink); font-family: var(--font-sans); }
 button, input, select { font: inherit; }
 button:not(:disabled), summary { cursor: pointer; }
 button, a, input, select, summary { outline-offset: 4px; }

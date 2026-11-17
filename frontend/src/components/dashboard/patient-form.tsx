@@ -3,8 +3,9 @@
 import { useState, type FormEvent } from "react";
 import { attendanceLabels, statusLabels, statusStyles, type Appointment, type AttendanceType } from "@/types/dashboard";
 import { parseMoney } from "@/services/billing";
+import { Button } from "@/components/ui/button";
+import { Field, Input, Select } from "@/components/ui/field";
 
-const field = "mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-normal text-slate-800 focus:outline-blue-500";
 export function PatientForm({ appointment, professionals, onSave, onCancel }: {
   appointment: Appointment;
   professionals: string[];
@@ -30,21 +31,21 @@ export function PatientForm({ appointment, professionals, onSave, onCancel }: {
     if (result) setError(result);
   }
   return <form onSubmit={submit} className="mt-5 space-y-4">
-    <p className="text-xs text-slate-500">Edite os dados e salve as alterações nesta demonstração.</p>
-    <label className="block text-xs font-semibold text-slate-600">Nome do paciente<input autoFocus required name="name" maxLength={120} defaultValue={appointment.patient.name} className={field} /></label>
+    <p className="text-xs text-muted">Edite os dados e salve as alterações nesta demonstração.</p>
+    <Field label="Nome do paciente"><Input autoFocus required name="name" maxLength={120} defaultValue={appointment.patient.name} /></Field>
     <div className="grid gap-4 sm:grid-cols-2">
-      <label className="block text-xs font-semibold text-slate-600">Tipo de atendimento<select value={attendanceType} onChange={e => setAttendanceType(e.target.value as AttendanceType)} className={field}>{Object.entries(attendanceLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
-      <label className="block text-xs font-semibold text-slate-600">Valor da consulta (R$)<input required name="amount" inputMode="decimal" maxLength={12} defaultValue={Number.isSafeInteger(appointment.amountCents) ? (appointment.amountCents / 100).toFixed(2).replace(".", ",") : ""} placeholder="0,00" className={field} /></label>
-      <label className="block text-xs font-semibold text-slate-600">Telefone<input required name="phone" type="tel" maxLength={25} defaultValue={appointment.patient.phone} className={field} /></label>
-      <label className="block text-xs font-semibold text-slate-600">E-mail (opcional)<input name="email" type="email" maxLength={254} defaultValue={appointment.patient.email} className={field} /></label>
+      <Field label="Tipo de atendimento"><Select value={attendanceType} onChange={e => setAttendanceType(e.target.value as AttendanceType)}>{Object.entries(attendanceLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</Select></Field>
+      <Field label="Valor da consulta (R$)"><Input required name="amount" inputMode="decimal" maxLength={12} defaultValue={Number.isSafeInteger(appointment.amountCents) ? (appointment.amountCents / 100).toFixed(2).replace(".", ",") : ""} placeholder="0,00" /></Field>
+      <Field label="Telefone"><Input required name="phone" type="tel" maxLength={25} defaultValue={appointment.patient.phone} /></Field>
+      <Field label="E-mail (opcional)"><Input name="email" type="email" maxLength={254} defaultValue={appointment.patient.email} /></Field>
     </div>
-    <label className="block text-xs font-semibold text-slate-600">Profissional<select name="professional" defaultValue={appointment.professional} className={field}>{professionals.map(name => <option key={name}>{name}</option>)}</select></label>
+    <Field label="Profissional"><Select name="professional" defaultValue={appointment.professional}>{professionals.map(name => <option key={name}>{name}</option>)}</Select></Field>
     <div className="grid grid-cols-2 gap-4">
-      <label className="block text-xs font-semibold text-slate-600">Data da consulta<input required name="date" type="date" defaultValue={appointment.date} className={field} /></label>
-      <label className="block text-xs font-semibold text-slate-600">Horário da consulta<input required name="time" type="time" defaultValue={appointment.time} className={field} /></label>
+      <Field label="Data da consulta"><Input required name="date" type="date" defaultValue={appointment.date} /></Field>
+      <Field label="Horário da consulta"><Input required name="time" type="time" defaultValue={appointment.time} /></Field>
     </div>
     <span className={`inline-block rounded-full px-3 py-1.5 text-xs font-semibold ${statusStyles[appointment.status]}`}>{statusLabels[appointment.status]}</span>
     {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
-    <div className="flex gap-3 pt-2"><button type="button" onClick={onCancel} className="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50">Cancelar</button><button type="submit" className="flex-1 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700">Salvar alterações</button></div>
+    <div className="flex gap-3 pt-2"><Button variant="secondary" size="lg" className="flex-1" onClick={onCancel}>Cancelar</Button><Button type="submit" size="lg" className="flex-1">Salvar alterações</Button></div>
   </form>;
 }
