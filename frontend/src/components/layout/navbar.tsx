@@ -1,9 +1,10 @@
 "use client";
 
-import { Activity, LayoutDashboard, CalendarDays, Users, ChevronDown, ShieldCheck, Settings, Search } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Users, ChevronDown, ShieldCheck, Settings, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OPEN_PALETTE_EVENT } from "@/components/command-palette";
+import { ClinicLogo } from "@/components/clinic-logo";
 
 
 const navigationItems = [
@@ -18,7 +19,7 @@ export function Navbar() {
   return (
     <aside aria-label="Menu da clínica" className="relative flex flex-wrap items-center justify-between gap-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:w-64 lg:flex-nowrap lg:flex-col lg:items-stretch lg:justify-start lg:overflow-y-auto lg:rounded-none lg:border-y-0 lg:border-l-0 lg:p-6">
       <Link href="/dashboard" aria-label="Cliniq início" className="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-blue-600">
-        <span className="rounded-xl bg-blue-600 p-2.5 text-white"><Activity size={22} aria-hidden="true" /></span>
+        <ClinicLogo decorative size={40} />
         <span className="text-xl font-extrabold tracking-tight">cliniq<span className="text-blue-600">.</span></span>
       </Link>
       <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))} aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K" className="order-2 flex w-full items-center gap-3 rounded-xl border border-line bg-white px-4 py-2.5 text-left text-sm text-muted transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-brand-600 lg:order-none lg:mt-6">

@@ -44,3 +44,13 @@ button, a, input, select, summary { outline-offset: 4px; }
   .overview-dialog[open] { animation: overview-enter 180ms ease-out; }
   @keyframes overview-enter { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 }
+
+/* Painel de chamada: entrada dos slides, faixa de texto correndo e pulso da chamada nova */
+@media (prefers-reduced-motion: no-preference) {
+  .panel-slide { animation: panel-slide-in 700ms ease-out; }
+  @keyframes panel-slide-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .panel-ticker { animation: panel-ticker 50s linear infinite; }
+  @keyframes panel-ticker { to { transform: translateX(-50%); } }
+  .panel-call { animation: panel-call 1.4s ease-in-out infinite; }
+  @keyframes panel-call { 50% { box-shadow: 0 0 0 8px rgb(245 158 11 / 40%); } }
+}

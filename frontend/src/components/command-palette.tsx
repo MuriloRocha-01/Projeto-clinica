@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CalendarDays, CornerDownLeft, LayoutDashboard, Search, Settings, User, Users, type LucideIcon } from "lucide-react";
+import { CalendarDays, CornerDownLeft, LayoutDashboard, Search, Settings, Tv, User, Users, type LucideIcon } from "lucide-react";
 import { useClinic } from "@/components/clinic-provider";
 
 /** Qualquer parte da tela pode abrir a busca disparando este evento (o menu lateral usa isso). */
@@ -15,6 +15,7 @@ const pages: Item[] = [
   { id: "p-visao", group: "Ir para", label: "Visão geral", hint: "Painel do dia", href: "/dashboard", icon: LayoutDashboard, keywords: "painel inicio dashboard" },
   { id: "p-agenda", group: "Ir para", label: "Agenda", hint: "Grade semanal e fila de atendimento", href: "/dashboard/agenda", icon: CalendarDays, keywords: "consultas horarios fila" },
   { id: "p-pacientes", group: "Ir para", label: "Pacientes", hint: "Cadastro e prontuários", href: "/dashboard/pacientes", icon: Users, keywords: "prontuario cadastro" },
+  { id: "p-painel", group: "Ir para", label: "Painel de chamada", hint: "Tela para a TV da sala de espera", href: "/painel", icon: Tv, keywords: "tv sala de espera chamar senha fila" },
   { id: "p-config", group: "Ir para", label: "Configurações", hint: "Profissionais, usuários e clínica", href: "/dashboard/configuracoes", icon: Settings, keywords: "profissionais usuarios ajustes" },
 ];
 

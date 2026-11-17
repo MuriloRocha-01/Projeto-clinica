@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Activity, ArrowRight, ArrowUp, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUp, Sparkles } from "lucide-react";
+import { ClinicLogo } from "@/components/clinic-logo";
 
 export function Footer() {
   const linkStyle = "inline-flex items-center gap-2 rounded text-sm text-slate-600 transition-colors hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-blue-600";
@@ -7,7 +8,7 @@ export function Footer() {
     <div className="mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-10">
       <div className="grid gap-10 py-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr] lg:gap-16 lg:py-12">
         <div>
-          <Link href="/dashboard" aria-label="Cliniq — visão geral" className="inline-flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-blue-600"><span className="rounded-xl bg-blue-600 p-2.5 text-white"><Activity size={24} aria-hidden="true" /></span><span className="text-2xl font-extrabold tracking-tight text-slate-900">cliniq<span className="text-blue-600">.</span></span></Link>
+          <Link href="/dashboard" aria-label="Cliniq — visão geral" className="inline-flex items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-blue-600"><ClinicLogo decorative size={46} /><span className="text-2xl font-extrabold tracking-tight text-slate-900">cliniq<span className="text-blue-600">.</span></span></Link>
           <p className="mt-5 max-w-xs text-sm leading-6 text-slate-600">Mais organização para sua clínica.<br />Mais tempo para cuidar de pessoas.</p>
           <p className="mt-5 text-xs font-semibold tracking-wide text-slate-500">Cuidar começa com uma boa gestão.</p>
         </div>

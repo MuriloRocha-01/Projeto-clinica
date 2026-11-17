@@ -4,6 +4,7 @@ import "./globals.css";
 import { Footer } from "@/components/layout/footer";
 import { ClinicProvider } from "@/components/clinic-provider";
 import { CommandPalette } from "@/components/command-palette";
+import { PanelBroadcaster } from "@/components/panel/panel-sync";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
@@ -13,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR" data-scroll-behavior="smooth" className={inter.variable}><body id="top" className="flex min-h-screen flex-col lg:pl-64"><ClinicProvider><div className="flex-1">{children}</div><Footer /><CommandPalette /></ClinicProvider></body></html>;
+  return <html lang="pt-BR" data-scroll-behavior="smooth" className={inter.variable}><body id="top" className="flex min-h-screen flex-col lg:pl-64"><ClinicProvider><div className="flex-1">{children}</div><Footer /><CommandPalette /><PanelBroadcaster /></ClinicProvider></body></html>;
 }
