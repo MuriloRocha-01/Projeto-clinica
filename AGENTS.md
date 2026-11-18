@@ -7,9 +7,9 @@ Este documento define as regras de arquitetura, design, padrões de código e di
 - **Backend:** Go (Golang), PostgreSQL, Arquitetura Limpa (Clean Architecture).
 - **Estilo Visual (Design System):** 
   - Interface limpa estilo *Clean Medical / Enterprise*.
-  - Fundo geral em tons de cinza claro/gelo (`bg-slate-100`).
+  - Fundo geral em Milk White (`bg-canvas`, `#F7F4F1`).
   - Containers, cartões e tabelas brancos com bordas arredondadas pronunciadas (`rounded-2xl`) e sombras suaves (`shadow-sm`).
-  - Cores semânticas focadas em `slate` (textos), `blue` (ações principais) e badges coloridas suaves para status operacionais.
+  - Paleta da marca em tokens, definidos em `frontend/src/app/globals.css`: `brand-*` (Forest Green `#244F28` nas ações principais, Soft Lime `#E3FAA5` nos blocos suaves), `accent` (Electric Lime `#D3FF5B`, só para destaques), `ink` e `muted` (textos) e `line` (bordas). Badges de status mantêm cores semânticas (rose, amber, emerald, violet).
 
 ## 2. Padrões de Código e Boas Práticas (Frontend - Next.js/TypeScript)
 - **Tipagem Estrita:** Evite o uso de `any`. Todas as entidades (Pacientes, Agendamentos, Profissionais, Fila) devem possuir interfaces ou types bem definidos.
@@ -43,6 +43,6 @@ Este documento define as regras de arquitetura, design, padrões de código e di
 ## 6. Diretrizes de Refatoração
 Sempre que for solicitado a revisar ou refatorar o código, siga rigorosamente esta ordem de prioridade:
 1. **Legibilidade e Clean Code:** Funções e componentes devem ser coesos, pequenos e fáceis de ler.
-2. **Consistência Visual:** Respeite o Design System estabelecido (cantos arredondados, paleta `slate`/`blue`, espaçamentos consistentes).
+2. **Consistência Visual:** Respeite o Design System estabelecido (cantos arredondados, tokens da paleta em `globals.css`, espaçamentos consistentes; não use classes cruas `slate-*` ou `blue-*`).
 3. **Tipagem e Segurança:** Garanta que nenhuma alteração quebre os tipos do TypeScript ou introduza comportamentos indesejados nas requisições da API.
 4. **Performance e Acessibilidade:** Valide semântica HTML, uso correto de Server/Client components e eficiência de renderização.

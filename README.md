@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-demonstra%C3%A7%C3%A3o%20local-3b82f6?style=flat-square" alt="Status: demonstração local" />
+  <img src="https://img.shields.io/badge/status-demonstra%C3%A7%C3%A3o%20local-244f28?style=flat-square" alt="Status: demonstração local" />
   <img src="https://img.shields.io/badge/ano-2026-64748b?style=flat-square" alt="Ano: 2026" />
 </p>
 
