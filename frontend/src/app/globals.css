@@ -5,21 +5,31 @@
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
+  /* Paleta: Milk White #F7F4F1, Soft Lime #E3FAA5, Electric Lime #D3FF5B e Forest Green #244F28.
+     brand-* é a escala do verde da marca (600 = Forest Green, 100 = Soft Lime); accent é o Electric Lime. */
+  --color-brand-50: #f3fadf;
+  --color-brand-100: #e3faa5;
+  --color-brand-200: #cdeb86;
+  --color-brand-300: #a8c96a;
+  --color-brand-500: #3c7a43;
+  --color-brand-600: #244f28;
+  --color-brand-700: #1b3d1f;
+  --color-brand-800: #142e17;
+  --color-brand-900: #0e2110;
+  --color-accent: #d3ff5b;
 
-  --color-ink: #0f172a;
-  /* texto secundário: 7,6:1 sobre branco e 6,7:1 sobre o fundo da página (AA exige 4,5:1) */
-  --color-muted: #475569;
-  --color-line: #e2e8f0;
-  --color-canvas: #f1f5f9;
+  --color-ink: #16251a;
+  --color-ink-soft: #2c3c2f;
+  /* texto secundário: mais de 6:1 sobre branco e sobre o fundo da página (AA exige 4,5:1) */
+  --color-muted: #4b5b4e;
+  --color-line: #e4e0d8;
+  --color-line-strong: #cbc5b8;
+  --color-canvas: #f7f4f1;
+  --color-soft: #fbf9f6;
 
   --radius-control: 0.75rem;
   --radius-card: 1rem;
-  --shadow-card: 0 1px 2px rgb(15 23 42 / 6%);
+  --shadow-card: 0 1px 2px rgb(22 37 26 / 6%);
 }
 
 :root { color-scheme: light; }
@@ -27,12 +37,12 @@ body { margin: 0; background: var(--color-canvas); color: var(--color-ink); font
 button, input, select { font: inherit; }
 button:not(:disabled), summary { cursor: pointer; }
 button, a, input, select, summary { outline-offset: 4px; }
-::selection { background: #bfdbfe; }
+::selection { background: #E3FAA5; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 
 .overview-interactive { outline-offset: 4px; }
-.overview-interactive:focus-visible { outline: 2px solid #2563eb; }
-.overview-interactive:hover { box-shadow: 0 8px 24px rgb(15 23 42 / 10%); }
+.overview-interactive:focus-visible { outline: 2px solid #244F28; }
+.overview-interactive:hover { box-shadow: 0 8px 24px rgb(22 37 26 / 10%); }
 @media (prefers-reduced-motion: no-preference) {
   .appointment-status { animation: appointment-status-change 220ms ease-out; transition: background-color 180ms ease, color 180ms ease; }
   @keyframes appointment-status-change { from { opacity: .5; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
@@ -52,5 +62,5 @@ button, a, input, select, summary { outline-offset: 4px; }
   .panel-ticker { animation: panel-ticker 50s linear infinite; }
   @keyframes panel-ticker { to { transform: translateX(-50%); } }
   .panel-call { animation: panel-call 1.4s ease-in-out infinite; }
-  @keyframes panel-call { 50% { box-shadow: 0 0 0 8px rgb(245 158 11 / 40%); } }
+  @keyframes panel-call { 50% { box-shadow: 0 0 0 8px rgb(36 79 40 / 30%); } }
 }

@@ -94,10 +94,10 @@ export function CommandPalette() {
         const rect = event.currentTarget.getBoundingClientRect();
         if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) event.currentTarget.close();
       }}
-      className="overview-dialog fixed inset-x-0 mx-auto mb-auto mt-[10vh] w-[calc(100%-2rem)] max-w-xl overflow-hidden rounded-2xl border border-line bg-white p-0 text-ink shadow-2xl backdrop:bg-slate-900/40 backdrop:backdrop-blur-sm"
+      className="overview-dialog fixed inset-x-0 mx-auto mb-auto mt-[10vh] w-[calc(100%-2rem)] max-w-xl overflow-hidden rounded-2xl border border-line bg-white p-0 text-ink shadow-2xl backdrop:bg-ink/40 backdrop:backdrop-blur-sm"
     >
       <div className="flex items-center gap-3 border-b border-line px-4">
-        <Search size={18} className="shrink-0 text-slate-500" aria-hidden="true" />
+        <Search size={18} className="shrink-0 text-muted" aria-hidden="true" />
         <input
           autoFocus
           value={query}
@@ -109,7 +109,7 @@ export function CommandPalette() {
           aria-activedescendant={results.length ? optionId(current) : undefined}
           aria-label="Buscar paciente ou ir para uma tela"
           placeholder="Buscar paciente, telefone ou tela…"
-          className="min-h-14 w-full bg-transparent text-base outline-none placeholder:text-slate-500"
+          className="min-h-14 w-full bg-transparent text-base outline-none placeholder:text-muted"
         />
         <kbd className="shrink-0 rounded-md border border-line px-1.5 py-0.5 text-xs font-semibold text-muted">Esc</kbd>
       </div>
@@ -129,9 +129,9 @@ export function CommandPalette() {
                 aria-selected={isActive}
                 onMouseEnter={() => setActive(index)}
                 onClick={() => run(item)}
-                className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 ${isActive ? "bg-brand-50 text-brand-800" : "text-slate-700"}`}
+                className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 ${isActive ? "bg-brand-50 text-brand-800" : "text-ink-soft"}`}
               >
-                <span className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${isActive ? "bg-white text-brand-700" : "bg-slate-100 text-slate-600"}`}><Icon size={17} aria-hidden="true" /></span>
+                <span className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${isActive ? "bg-white text-brand-700" : "bg-canvas text-muted"}`}><Icon size={17} aria-hidden="true" /></span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-sm font-semibold"><Highlight text={item.label} query={q} /></span>
                   <span className="block truncate text-xs text-muted">{item.hint}</span>
@@ -148,7 +148,7 @@ export function CommandPalette() {
       )}
       <p className="sr-only" role="status" aria-live="polite">{results.length} resultado(s)</p>
 
-      <footer className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-line bg-slate-50 px-4 py-2.5 text-xs text-muted">
+      <footer className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-line bg-soft px-4 py-2.5 text-xs text-muted">
         <span><kbd className="font-semibold">↑↓</kbd> navegar</span>
         <span><kbd className="font-semibold">Enter</kbd> abrir</span>
         <span><kbd className="font-semibold">Esc</kbd> fechar</span>

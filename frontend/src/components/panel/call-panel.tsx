@@ -13,7 +13,7 @@ import { createAudioContext, playChime, speak, stopSpeaking } from "./panel-audi
 import { usePanelFeed } from "./panel-sync";
 
 const MAX_CALLS = 8;
-const control = "inline-flex min-h-10 items-center gap-2 rounded-xl border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-blue-600 disabled:cursor-not-allowed disabled:opacity-40";
+const control = "inline-flex min-h-10 items-center gap-2 rounded-xl border border-line-strong bg-white px-3 text-sm font-semibold text-ink-soft hover:bg-canvas focus-visible:outline-2 focus-visible:outline-brand-600 disabled:cursor-not-allowed disabled:opacity-40";
 const ribbon = "absolute -left-16 top-9 w-56 -rotate-45 py-1.5 text-center text-xs font-extrabold uppercase tracking-[0.2em] text-white shadow-md";
 
 /** Avisos e dicas de saúde que giram no lado esquerdo, com ilustração e fita colorida no canto (textos em panel-content.ts) */
@@ -30,21 +30,21 @@ function InfoCarousel() {
       <span className={`${ribbon} ${slide.ribbonColor}`}>{slide.ribbon}</span>
       <div role="group" aria-roledescription="carrossel" aria-label="Informações para quem aguarda" className="flex h-full flex-col gap-4 pt-6">
         <div key={slide.id} className="panel-slide flex min-h-0 flex-1 flex-col gap-4">
-          <h2 className="pl-14 text-3xl font-extrabold leading-tight text-slate-900 md:text-5xl">{slide.title}</h2>
+          <h2 className="pl-14 text-3xl font-extrabold leading-tight text-ink md:text-5xl">{slide.title}</h2>
           <PanelIllustration scene={slide.id} className="min-h-0 w-full flex-1" />
-          <p className="text-xl leading-relaxed text-slate-700 md:text-2xl">{slide.text}</p>
+          <p className="text-xl leading-relaxed text-ink-soft md:text-2xl">{slide.text}</p>
         </div>
         <div className="flex items-end justify-between gap-4">
         <div className="flex gap-2 pb-1" role="tablist" aria-label="Escolher aviso">
           {slides.map((item, position) => (
-            <button key={item.id} type="button" role="tab" aria-selected={position === index} aria-label={`Aviso ${position + 1}: ${item.title}`} onClick={() => setIndex(position)} className={`h-2.5 rounded-full transition-all focus-visible:outline-2 focus-visible:outline-blue-600 ${position === index ? "w-10 bg-blue-600" : "w-2.5 bg-slate-300 hover:bg-slate-400"}`} />
+            <button key={item.id} type="button" role="tab" aria-selected={position === index} aria-label={`Aviso ${position + 1}: ${item.title}`} onClick={() => setIndex(position)} className={`h-2.5 rounded-full transition-all focus-visible:outline-2 focus-visible:outline-brand-600 ${position === index ? "w-10 bg-brand-600" : "w-2.5 bg-line-strong hover:bg-muted"}`} />
           ))}
         </div>
         <div className="flex items-center gap-3">
           <ClinicLogo size={56} />
           <div>
-            <p className="text-lg font-extrabold leading-tight text-slate-900">Clínica Bem Viver</p>
-            <p className="text-sm text-slate-600">Sala de espera</p>
+            <p className="text-lg font-extrabold leading-tight text-ink">Clínica Bem Viver</p>
+            <p className="text-sm text-muted">Sala de espera</p>
           </div>
         </div>
         </div>
@@ -95,28 +95,28 @@ export function CallPanel() {
   const dateLabel = new Date(`${feed.date}T12:00:00`).toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
 
   return (
-    <main className="fixed inset-0 z-[100] flex flex-col gap-5 overflow-y-auto bg-white p-5 text-slate-900 md:p-8">
+    <main className="fixed inset-0 z-[100] flex flex-col gap-5 overflow-y-auto bg-white p-5 text-ink md:p-8">
       <header className="flex justify-end">
         <h1 className="sr-only">Painel de chamada · Clínica Bem Viver · Sala de espera</h1>
         <div className="text-right">
           <p className="text-5xl font-extrabold tabular-nums md:text-6xl">{minutesToClock(feed.clockMinutes)}</p>
-          <p className="text-sm capitalize text-slate-600">{dateLabel}</p>
+          <p className="text-sm capitalize text-muted">{dateLabel}</p>
         </div>
       </header>
 
       <div className="grid min-h-0 flex-1 gap-5 lg:grid-cols-[1.1fr_1fr]">
         {/* Esquerda: avisos e dicas, ou a chamada nova em destaque */}
-        <section aria-label={highlight ? "Chamada em destaque" : "Avisos e dicas de saúde"} className={`relative overflow-hidden rounded-3xl border-2 p-8 md:p-10 ${highlight ? "border-blue-500 bg-blue-50 shadow-[0_0_0_6px_rgb(191_219_254)]" : "border-sky-200 bg-gradient-to-br from-sky-100 via-white to-sky-50"}`}>
+        <section aria-label={highlight ? "Chamada em destaque" : "Avisos e dicas de saúde"} className={`relative overflow-hidden rounded-3xl border-2 p-8 md:p-10 ${highlight ? "border-brand-500 bg-brand-50 shadow-[0_0_0_6px_rgb(211_255_91)]" : "border-brand-200 bg-gradient-to-br from-brand-100 via-white to-brand-50"}`}>
           {highlight ? (
             <>
-              <span className={`${ribbon} bg-amber-700`}>Chamando</span>
+              <span className={`${ribbon} bg-brand-700`}>Chamando</span>
               <div className="flex h-full flex-col justify-center pl-4">
-                <h2 className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.25em] text-blue-700"><Megaphone size={18} aria-hidden="true" /><span className="motion-safe:animate-pulse">Chamando agora</span></h2>
-                <p className="mt-6 text-sm font-semibold uppercase tracking-widest text-slate-600">Senha</p>
-                <p className="text-7xl font-extrabold leading-none tracking-tight text-blue-700 md:text-9xl">{ticketCode(highlight)}</p>
+                <h2 className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.25em] text-brand-700"><Megaphone size={18} aria-hidden="true" /><span className="motion-safe:animate-pulse">Chamando agora</span></h2>
+                <p className="mt-6 text-sm font-semibold uppercase tracking-widest text-muted">Senha</p>
+                <p className="text-7xl font-extrabold leading-none tracking-tight text-brand-700 md:text-9xl">{ticketCode(highlight)}</p>
                 <p className="mt-6 text-4xl font-bold md:text-6xl">{publicName(highlight.patient.name)}</p>
-                <p className="mt-6 text-3xl font-semibold text-blue-800 md:text-4xl">Consultório {roomOf(highlight)}</p>
-                <p className="mt-1 text-xl text-slate-600">{highlight.professional} · {highlight.specialty}</p>
+                <p className="mt-6 text-3xl font-semibold text-brand-800 md:text-4xl">Consultório {roomOf(highlight)}</p>
+                <p className="mt-1 text-xl text-muted">{highlight.professional} · {highlight.specialty}</p>
               </div>
             </>
           ) : (
@@ -125,14 +125,14 @@ export function CallPanel() {
         </section>
 
         {/* Direita: últimas chamadas, no estilo dos painéis de senha */}
-        <section aria-labelledby="painel-chamadas" className="flex min-h-0 flex-col rounded-3xl border border-slate-200 bg-slate-50 p-5 md:p-6">
-          <h2 id="painel-chamadas" className="text-sm font-bold uppercase tracking-[0.25em] text-blue-700">Últimas chamadas</h2>
+        <section aria-labelledby="painel-chamadas" className="flex min-h-0 flex-col rounded-3xl border border-line bg-soft p-5 md:p-6">
+          <h2 id="painel-chamadas" className="text-sm font-bold uppercase tracking-[0.25em] text-brand-700">Últimas chamadas</h2>
           <ol className="mt-4 grid flex-1 grid-cols-2 gap-3 [grid-template-rows:repeat(4,minmax(0,1fr))]">
             {grid.map((appointment, position) => {
               const isNow = highlight?.id === appointment.id;
-              const label = isNow ? "text-slate-900" : "text-white";
+              const label = isNow ? "text-ink" : "text-white";
               return (
-                <li key={appointment.id} className={`flex flex-col justify-between rounded-2xl p-4 ${isNow ? "panel-call bg-amber-400 text-slate-950" : position === 0 ? "bg-blue-700 text-white" : "bg-blue-600 text-white"}`}>
+                <li key={appointment.id} className={`flex flex-col justify-between rounded-2xl p-4 ${isNow ? "panel-call bg-accent text-brand-800" : position === 0 ? "bg-brand-700 text-white" : "bg-brand-600 text-white"}`}>
                   <p className="truncate text-sm font-semibold">{publicName(appointment.patient.name)}</p>
                   <div className="flex items-end justify-between gap-2">
                     <div>
@@ -147,16 +147,16 @@ export function CallPanel() {
                 </li>
               );
             })}
-            {Array.from({ length: MAX_CALLS - grid.length }, (_, slot) => <li key={`vazio-${slot}`} aria-hidden="true" className="rounded-2xl border-2 border-dashed border-slate-300" />)}
+            {Array.from({ length: MAX_CALLS - grid.length }, (_, slot) => <li key={`vazio-${slot}`} aria-hidden="true" className="rounded-2xl border-2 border-dashed border-line-strong" />)}
           </ol>
-          <p className="mt-4 text-sm text-slate-600">
+          <p className="mt-4 text-sm text-muted">
             {queue.length ? `Aguardando: ${queue.length} · próximas senhas ${queue.slice(0, 4).map(ticketCode).join(" · ")}` : "Ninguém aguardando no momento."}
           </p>
         </section>
       </div>
 
       {/* Faixa de texto correndo, como nos painéis de hospital */}
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white py-3 text-xl font-extrabold text-blue-700 md:text-2xl" aria-hidden="true">
+      <div className="overflow-hidden rounded-xl border border-line bg-white py-3 text-xl font-extrabold text-brand-700 md:text-2xl" aria-hidden="true">
         <div className="panel-ticker flex w-max whitespace-nowrap motion-reduce:w-auto motion-reduce:whitespace-normal">
           <span className="px-8">{tickerText}</span>
           <span className="px-8 motion-reduce:hidden">{tickerText}</span>

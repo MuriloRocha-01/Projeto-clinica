@@ -5,7 +5,7 @@ import { ArrowDownToLine, Search, Tv } from "lucide-react";
 import { QueueTable } from "./queue-table";
 import { attendanceLabels, statusLabels, type Appointment, type AppointmentStatus, type AttendanceType } from "@/types/dashboard";
 
-const field = "rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 focus:outline-blue-500";
+const field = "rounded-xl border border-line bg-white px-3 py-2.5 text-sm text-ink-soft focus:outline-brand-500";
 
 export function PatientTableView({ appointments, professionals, mode, onTransition, onPatient }: {
   appointments: Appointment[];
@@ -34,14 +34,14 @@ export function PatientTableView({ appointments, professionals, mode, onTransiti
   }
 
   return <section className="overflow-hidden rounded-2xl bg-white shadow-sm">
-    <header className="flex flex-wrap items-center justify-between gap-4 p-6"><div><h2 className="text-lg font-bold">{mode === "queue" ? "Fila de atendimento" : "Tabela de pacientes"}</h2><p className="mt-1 text-sm text-slate-600">{mode === "queue" ? "Acompanhe a chegada e cada etapa do atendimento." : "Consulte os pacientes e edite suas fichas na data selecionada."}</p>{mode === "queue" && <button type="button" onClick={() => window.open("/painel", "cliniq-painel", "popup,width=1280,height=720")} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-brand-600"><Tv size={14} aria-hidden="true" />Abrir painel de chamada<span className="sr-only"> em uma nova janela</span></button>}</div><button onClick={exportRows} className={`${field} flex items-center gap-2 font-semibold hover:bg-slate-50`}><ArrowDownToLine size={16} />Exportar tabela</button></header>
+    <header className="flex flex-wrap items-center justify-between gap-4 p-6"><div><h2 className="text-lg font-bold">{mode === "queue" ? "Fila de atendimento" : "Tabela de pacientes"}</h2><p className="mt-1 text-sm text-muted">{mode === "queue" ? "Acompanhe a chegada e cada etapa do atendimento." : "Consulte os pacientes e edite suas fichas na data selecionada."}</p>{mode === "queue" && <button type="button" onClick={() => window.open("/painel", "cliniq-painel", "popup,width=1280,height=720")} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-xs font-semibold text-ink-soft hover:bg-soft focus-visible:outline-2 focus-visible:outline-brand-600"><Tv size={14} aria-hidden="true" />Abrir painel de chamada<span className="sr-only"> em uma nova janela</span></button>}</div><button onClick={exportRows} className={`${field} flex items-center gap-2 font-semibold hover:bg-soft`}><ArrowDownToLine size={16} />Exportar tabela</button></header>
     <div className="flex flex-wrap gap-3 px-6 pb-6">
-      <label className="relative min-w-48 flex-1"><Search size={16} className="absolute left-3 top-3 text-slate-500" /><span className="sr-only">Buscar paciente ou telefone</span><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar por nome ou telefone..." className={`${field} w-full pl-9`} /></label>
+      <label className="relative min-w-48 flex-1"><Search size={16} className="absolute left-3 top-3 text-muted" /><span className="sr-only">Buscar paciente ou telefone</span><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Buscar por nome ou telefone..." className={`${field} w-full pl-9`} /></label>
       <label><span className="sr-only">Filtrar profissional</span><select value={professional} onChange={e => setProfessional(e.target.value)} className={field}><option value="all">Todos os profissionais</option>{professionals.map(name => <option key={name}>{name}</option>)}</select></label>
       <label><span className="sr-only">Filtrar status</span><select value={status} onChange={e => setStatus(e.target.value as AppointmentStatus | "all")} className={field}><option value="all">Todos os status</option>{Object.entries(statusLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
       <label><span className="sr-only">Filtrar tipo de atendimento</span><select value={attendance} onChange={e => setAttendance(e.target.value as AttendanceType | "all")} className={field}><option value="all">Particular e convênios</option>{Object.entries(attendanceLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
     </div>
     <QueueTable appointments={rows} onTransition={onTransition} onPatient={onPatient} />
-    <footer className="flex flex-wrap justify-between gap-2 border-t border-slate-100 px-6 py-4 text-xs text-slate-600"><span>{rows.length} de {appointments.length} agendamentos</span><span>Atualizações locais nesta sessão</span></footer>
+    <footer className="flex flex-wrap justify-between gap-2 border-t border-line px-6 py-4 text-xs text-muted"><span>{rows.length} de {appointments.length} agendamentos</span><span>Atualizações locais nesta sessão</span></footer>
   </section>;
 }

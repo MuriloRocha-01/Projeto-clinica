@@ -17,33 +17,33 @@ const navigationItems = [
 export function Navbar() {
   const pathname = usePathname();
   return (
-    <aside aria-label="Menu da clínica" className="relative flex flex-wrap items-center justify-between gap-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:w-64 lg:flex-nowrap lg:flex-col lg:items-stretch lg:justify-start lg:overflow-y-auto lg:rounded-none lg:border-y-0 lg:border-l-0 lg:p-6">
-      <Link href="/dashboard" aria-label="Cliniq início" className="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-blue-600">
+    <aside aria-label="Menu da clínica" className="relative flex flex-wrap items-center justify-between gap-5 rounded-2xl border border-line bg-white p-5 shadow-sm lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:w-64 lg:flex-nowrap lg:flex-col lg:items-stretch lg:justify-start lg:overflow-y-auto lg:rounded-none lg:border-y-0 lg:border-l-0 lg:p-6">
+      <Link href="/dashboard" aria-label="Cliniq início" className="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-brand-600">
         <ClinicLogo decorative size={40} />
-        <span className="text-xl font-extrabold tracking-tight">cliniq<span className="text-blue-600">.</span></span>
+        <span className="text-xl font-extrabold tracking-tight">cliniq<span className="text-brand-600">.</span></span>
       </Link>
-      <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))} aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K" className="order-2 flex w-full items-center gap-3 rounded-xl border border-line bg-white px-4 py-2.5 text-left text-sm text-muted transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-brand-600 lg:order-none lg:mt-6">
+      <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))} aria-haspopup="dialog" aria-keyshortcuts="Control+K Meta+K" className="order-2 flex w-full items-center gap-3 rounded-xl border border-line bg-white px-4 py-2.5 text-left text-sm text-muted transition-colors hover:bg-soft focus-visible:outline-2 focus-visible:outline-brand-600 lg:order-none lg:mt-6">
         <Search size={16} aria-hidden="true" /><span className="flex-1">Buscar…</span><kbd className="rounded-md border border-line px-1.5 py-0.5 text-xs font-semibold">Ctrl K</kbd>
       </button>
       <nav aria-label="Navegação principal" className="order-3 flex w-full gap-1 overflow-x-auto text-sm font-semibold lg:order-none lg:mt-4 lg:flex-col lg:overflow-visible">
         {navigationItems.map(({ label, href, icon: Icon }) => (
-          <Link key={href} href={href} aria-current={(href === "/dashboard" ? pathname === href : pathname.startsWith(href)) ? "page" : undefined} className={`flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-blue-600 ${(href === "/dashboard" ? pathname === href : pathname.startsWith(href)) ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
+          <Link key={href} href={href} aria-current={(href === "/dashboard" ? pathname === href : pathname.startsWith(href)) ? "page" : undefined} className={`flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors focus-visible:outline-2 focus-visible:outline-brand-600 ${(href === "/dashboard" ? pathname === href : pathname.startsWith(href)) ? "bg-brand-100 text-brand-700" : "text-muted hover:bg-soft hover:text-ink"}`}>
             <Icon size={18} aria-hidden="true" />{label}
           </Link>
         ))}
       </nav>
-      <div className="lg:mt-auto lg:border-t lg:border-slate-100 lg:pt-5">
-        <p className="mb-4 hidden text-xs text-slate-600 lg:block">Clínica Bem Viver</p>
+      <div className="lg:mt-auto lg:border-t lg:border-line lg:pt-5">
+        <p className="mb-4 hidden text-xs text-muted lg:block">Clínica Bem Viver</p>
         <details className="relative">
-          <summary className="flex list-none items-center gap-3 rounded-xl text-left focus-visible:outline-2 focus-visible:outline-blue-600">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700">AO</span>
-            <span className="hidden min-w-0 sm:block"><span className="block text-sm font-bold">Dra. Ana Oliveira</span><span className="block text-xs text-slate-600">Perfil de demonstração</span></span>
-            <ChevronDown size={16} className="shrink-0 text-slate-500" aria-hidden="true" />
+          <summary className="flex list-none items-center gap-3 rounded-xl text-left focus-visible:outline-2 focus-visible:outline-brand-600">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-100 text-sm font-bold text-brand-700">AO</span>
+            <span className="hidden min-w-0 sm:block"><span className="block text-sm font-bold">Dra. Ana Oliveira</span><span className="block text-xs text-muted">Perfil de demonstração</span></span>
+            <ChevronDown size={16} className="shrink-0 text-muted" aria-hidden="true" />
           </summary>
-          <div className="absolute right-0 top-full z-40 mt-4 w-64 rounded-2xl border border-slate-100 bg-white p-5 shadow-lg lg:bottom-full lg:left-0 lg:right-auto lg:top-auto lg:mb-4 lg:mt-0 lg:w-full">
-            <ShieldCheck className="mb-2 text-blue-600" size={20} aria-hidden="true" />
+          <div className="absolute right-0 top-full z-40 mt-4 w-64 rounded-2xl border border-line bg-white p-5 shadow-lg lg:bottom-full lg:left-0 lg:right-auto lg:top-auto lg:mb-4 lg:mt-0 lg:w-full">
+            <ShieldCheck className="mb-2 text-brand-600" size={20} aria-hidden="true" />
             <p className="text-sm font-bold">Perfil de demonstração</p>
-            <p className="mt-1 text-xs leading-5 text-slate-600">Recepção e gestão da Clínica Bem Viver. Autenticação ainda não conectada.</p>
+            <p className="mt-1 text-xs leading-5 text-muted">Recepção e gestão da Clínica Bem Viver. Autenticação ainda não conectada.</p>
           </div>
         </details>
       </div>

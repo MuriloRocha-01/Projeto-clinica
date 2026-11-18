@@ -20,11 +20,11 @@ export function PanelIllustration({ scene, className }: { scene: Scene; classNam
   switch (scene) {
     case "bem-vindo":
       return (
-        <Frame blob="#dbeafe" className={className}>
+        <Frame blob="#E3FAA5" className={className}>
           <path d="M200 208 C100 142 108 58 160 60 C186 61 197 78 200 92 C203 78 214 61 240 60 C292 58 300 142 200 208 Z" fill="#f43f5e" />
           <path d="M116 138 H166 L181 106 L203 170 L219 126 L229 138 H284" stroke="#fff" strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-          <g transform="translate(305 62)"><circle r="32" fill="#2563eb" /><path d="M-6 -18H6V-6H18V6H6V18H-6V6H-18V-6H-6Z" fill="#fff" /></g>
-          {sparkle(92, 70)}{sparkle(110, 205, 5, "#38bdf8")}{sparkle(335, 170, 6, "#38bdf8")}{sparkle(75, 150, 5)}
+          <g transform="translate(305 62)"><circle r="32" fill="#244F28" /><path d="M-6 -18H6V-6H18V6H6V18H-6V6H-18V-6H-6Z" fill="#fff" /></g>
+          {sparkle(92, 70)}{sparkle(110, 205, 5, "#9ECB3C")}{sparkle(335, 170, 6, "#9ECB3C")}{sparkle(75, 150, 5)}
         </Frame>
       );
     case "prioridade":
@@ -32,8 +32,8 @@ export function PanelIllustration({ scene, className }: { scene: Scene; classNam
         <Frame blob="#ede9fe" className={className}>
           <rect x="35" y="208" width="330" height="14" rx="7" fill="#c4b5fd" />
           {/* idosa, com bengala */}
-          <circle cx="82" cy="98" r="17" fill={skin} /><path d="M66 92 Q82 70 98 92 Q82 84 66 92Z" fill="#e5e7eb" />
-          <rect x="62" y="118" width="40" height="84" rx="16" fill="#2563eb" /><path d="M112 140 V204" stroke="#92400e" strokeWidth="6" strokeLinecap="round" /><path d="M112 140 q10 -2 10 8" stroke="#92400e" strokeWidth="6" fill="none" strokeLinecap="round" />
+          <circle cx="82" cy="98" r="17" fill={skin} /><path d="M66 92 Q82 70 98 92 Q82 84 66 92Z" fill="#E4E0D8" />
+          <rect x="62" y="118" width="40" height="84" rx="16" fill="#244F28" /><path d="M112 140 V204" stroke="#92400e" strokeWidth="6" strokeLinecap="round" /><path d="M112 140 q10 -2 10 8" stroke="#92400e" strokeWidth="6" fill="none" strokeLinecap="round" />
           {/* gestante */}
           <circle cx="168" cy="98" r="17" fill={skin} /><path d="M150 96 Q168 66 186 96 Q168 82 150 96Z" fill="#7c2d12" />
           <rect x="148" y="118" width="40" height="84" rx="16" fill="#e11d48" /><circle cx="186" cy="156" r="19" fill="#fb7185" />
@@ -76,23 +76,23 @@ export function PanelIllustration({ scene, className }: { scene: Scene; classNam
     case "retorno":
       return (
         <Frame blob="#fef3c7" className={className}>
-          <rect x="108" y="56" width="184" height="164" rx="20" fill="#fff" stroke="#2563eb" strokeWidth="6" />
-          <path d="M108 100 V76 a20 20 0 0 1 20 -20 H272 a20 20 0 0 1 20 20 V100 Z" fill="#2563eb" />
-          <rect x="148" y="40" width="14" height="32" rx="7" fill="#1e3a8a" /><rect x="238" y="40" width="14" height="32" rx="7" fill="#1e3a8a" />
-          {[0, 1, 2].flatMap(row => [0, 1, 2, 3].map(col => <circle key={`${row}-${col}`} cx={146 + col * 36} cy={132 + row * 30} r="8" fill={row === 1 && col === 2 ? "#f59e0b" : "#e2e8f0"} />))}
+          <rect x="108" y="56" width="184" height="164" rx="20" fill="#fff" stroke="#244F28" strokeWidth="6" />
+          <path d="M108 100 V76 a20 20 0 0 1 20 -20 H272 a20 20 0 0 1 20 20 V100 Z" fill="#244F28" />
+          <rect x="148" y="40" width="14" height="32" rx="7" fill="#142E17" /><rect x="238" y="40" width="14" height="32" rx="7" fill="#142E17" />
+          {[0, 1, 2].flatMap(row => [0, 1, 2, 3].map(col => <circle key={`${row}-${col}`} cx={146 + col * 36} cy={132 + row * 30} r="8" fill={row === 1 && col === 2 ? "#f59e0b" : "#E4E0D8"} />))}
           <circle cx="282" cy="206" r="36" fill="#10b981" stroke="#fff" strokeWidth="6" /><path d="M264 206 L277 219 L302 191" stroke="#fff" strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-          {sparkle(80, 80)}{sparkle(335, 90, 5, "#38bdf8")}{sparkle(95, 200, 5, "#fb7185")}
+          {sparkle(80, 80)}{sparkle(335, 90, 5, "#9ECB3C")}{sparkle(95, 200, 5, "#fb7185")}
         </Frame>
       );
     case "duvidas":
       return (
         <Frame blob="#ffe4e6" className={className}>
           <circle cx="170" cy="100" r="23" fill={skin} /><path d="M148 96 Q170 66 192 96 Q170 84 148 96Z" fill="#1f2937" />
-          <rect x="138" y="124" width="64" height="70" rx="24" fill="#fff" stroke="#cbd5e1" strokeWidth="4" /><path d="M164 146H176V158H188V170H176V182H164V170H152V158H164Z" fill="#e11d48" />
-          <rect x="70" y="176" width="260" height="46" rx="12" fill="#2563eb" /><rect x="60" y="166" width="280" height="16" rx="8" fill="#1e3a8a" />
+          <rect x="138" y="124" width="64" height="70" rx="24" fill="#fff" stroke="#CBC5B8" strokeWidth="4" /><path d="M164 146H176V158H188V170H176V182H164V170H152V158H164Z" fill="#e11d48" />
+          <rect x="70" y="176" width="260" height="46" rx="12" fill="#244F28" /><rect x="60" y="166" width="280" height="16" rx="8" fill="#142E17" />
           <path d="M240 38 H336 a22 22 0 0 1 22 22 V84 a22 22 0 0 1 -22 22 H292 L268 128 V106 H240 a22 22 0 0 1 -22 -22 V60 a22 22 0 0 1 22 -22Z" fill="#fff" stroke="#e11d48" strokeWidth="5" strokeLinejoin="round" />
           <text x="288" y="90" textAnchor="middle" fontSize="54" fontWeight="800" fill="#e11d48">?</text>
-          {sparkle(90, 90)}{sparkle(370, 160, 5, "#38bdf8")}{sparkle(100, 150, 5, "#38bdf8")}
+          {sparkle(90, 90)}{sparkle(370, 160, 5, "#9ECB3C")}{sparkle(100, 150, 5, "#9ECB3C")}
         </Frame>
       );
   }

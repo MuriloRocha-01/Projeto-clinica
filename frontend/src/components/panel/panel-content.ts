@@ -6,7 +6,7 @@ export interface Slide { id: Scene; ribbon: string; ribbonColor: string; title: 
 
 export const slides: Slide[] = [
   {
-    id: "bem-vindo", ribbon: "Bem-vindo", ribbonColor: "bg-blue-700",
+    id: "bem-vindo", ribbon: "Bem-vindo", ribbonColor: "bg-brand-700",
     title: "Cuidar de você é o nosso começo",
     text: "Aguarde ser chamado pela senha e pelo nome neste painel. Já já chega a sua vez.",
   },

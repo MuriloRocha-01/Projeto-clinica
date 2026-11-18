@@ -1,6 +1,6 @@
 /** Logotipo da clínica: cruz azul dentro de um contorno oval que termina em ponta de estetoscópio. Redesenhado em SVG a partir da imagem enviada. */
 export function ClinicLogo({ size = 40, decorative = false, className = "" }: { size?: number; decorative?: boolean; className?: string }) {
-  const blue = "#1a75bb";
+  const blue = "#244F28";
   return (
     <svg
       viewBox="395 330 410 540"
